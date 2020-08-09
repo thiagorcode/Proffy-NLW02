@@ -1,8 +1,10 @@
 import express from 'express';
-
+import cors from 'cors';
 import routes from './routes'
 
 const app = express();
+
+app.use(cors());
 app.use(express.json()); // Serve para utilizar o método 
 app.use(routes);
 // Rotas são http://localhost:3001/users - Uma rota que gera uma certa instrução.
