@@ -14,7 +14,6 @@ app.use(routes);
 // Route Params: identificar qual recurso eu quero atuallizar ou deletar /:id
 // Query params: Paginação, filtos e ordenação.abs
 
-
 app.listen(3001, () => {
   console.log("API ATIVADA na porta 3001")
 })
