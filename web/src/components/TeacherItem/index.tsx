@@ -2,32 +2,54 @@ import React from 'react';
 
 import './styles.css';
 import whatsappIcon from '../../assets/images/icons/whatsapp.svg';
+import api from '../../services/api';
 
-function TeacherItem() {
 
+export interface Teacher {
+  id: number,
+  avatar: string,
+  bio: string,
+  cost: number,
+  name: string,
+  subject: string,
+  whatsapp: string,
+
+}
+export interface TeacherItemProps {
+  teacher: Teacher;
+}
+
+const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) => {
+  function createNewConnection() {
+    api.post('connections', {
+      user_id: teacher.id,
+    })
+  }
   return (
     <article className="teacher-item">
       <header>
-        <img src="https://avatars3.githubusercontent.com/u/54317829?s=460&u=4be6d3b6128129b992f3b6b0673d6d4ae3b9f6ae&v=4" alt="Professor" />
+        <img src={teacher.avatar} alt={teacher.name} />
         <div>
-          <strong>Thiago Rodrigues</strong>
-          <span>Matemática</span>
+          <strong>{teacher.name}</strong>
+          <span> {teacher.subject} </span>
         </div>
       </header>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi optio sequi eius repellendus, nostrum quam ut ipsa libero temporibus.
-            <br /> <br />
-            Nostrum sit asperiores fugit hic vero ratione error facilis labore distinctio! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos maiores voluptatum asperiores tempora, ex error enim incidunt voluptate fuga ducimus unde.
-          </p>
+        {teacher.bio}
+      </p>
       <footer>
         <p>
           Preço/hora
-              <strong>R$ 80,00</strong>
+              <strong>{teacher.cost}</strong>
         </p>
-        <button type='button' >
+        <a
+          onClick={createNewConnection}
+          href={`https://wa.me/+55${teacher.whatsapp}?text=Eu%20tenho%20interesse%20nas%20Aulas!!!`}
+          target="_blank"
+        >
           <img src={whatsappIcon} alt="Fale comigo" />
               Entrar em contato
-            </button>
+          </a>
       </footer>
     </article>
 
